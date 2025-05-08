@@ -1,0 +1,73 @@
+[project]
+name = "python-door"  # 项目名称
+version = "0.1.0"     # 项目版本号
+description = "Python Door Project"  # 项目描述
+authors = [
+    {name = "pengb", email = "mochen0514@gmail.com"}  # 项目作者信息
+]
+readme = "README.md"  # 项目README文件路径
+requires-python = ">=3.13"  # 最低Python版本要求
+
+# 项目依赖项
+dependencies = [
+    # Web 框架
+    "flask>=3.1.0,<4.0.0"  # Flask框架，用于构建Web应用
+]
+
+# Poetry打包配置
+[tool.poetry]
+packages = [
+    {include = "webserver", from = "src"},  # 包含webserver模块
+    {include = "term2", from = "src"}       # 包含term2模块
+]
+package-mode = false  # 是否启用包模式
+
+# 开发环境依赖项
+[tool.poetry.group.dev.dependencies]
+# 测试框架
+pytest = "^7.4.0"  # pytest，用于编写和运行测试用例
+# 测试覆盖率工具
+pytest-cov = "^4.1.0"  # pytest-cov，用于生成测试覆盖率报告
+# 代码风格检查工具
+flake8 = "^6.1.0"  # flake8，用于检查代码风格
+# 代码格式化工具
+black = "^23.9.1"  # black，用于自动格式化代码
+# 类型检查工具
+mypy = "^1.5.1"  # mypy，用于静态类型检查
+# import 语句排序工具
+isort = "^5.12.0"  # isort，用于自动排序import语句
+
+# 构建系统配置
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]  # 构建系统依赖
+build-backend = "poetry.core.masonry.api"  # 构建后端
+
+# pytest配置
+[tool.pytest.ini_options]
+testpaths = ["tests"]  # 测试文件路径
+python_files = ["test_*.py"]  # 匹配测试文件的模式
+python_classes = ["Test*"]  # 匹配测试类的模式
+python_functions = ["test_*"]  # 匹配测试函数的模式
+
+# black代码格式化配置
+[tool.black]
+line-length = 88  # 每行最大字符数
+target-version = ['py313']  # 目标Python版本
+include = '\.pyi?$'  # 匹配Python文件的正则表达式
+
+# mypy类型检查配置
+[tool.mypy]
+ignore_missing_imports = true  # 忽略缺失的导入
+check_untyped_defs = true  # 检查未指定类型的函数
+disallow_untyped_defs = true  # 禁止未指定类型的函数定义
+
+# isort import语句排序配置
+[tool.isort]
+profile = "black"  # 使用black风格
+multi_line_output = 3  # 多行输出格式
+include_trailing_comma = true  # 是否在多行末尾添加逗号
+force_grid_wrap = 0  # 强制网格换行
+use_parentheses = true  # 使用括号包裹多行import
+ensure_newline_before_comments = true  # 在注释前确保换行
+line_length = 88  # 每行最大字符数
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]  # import分组顺序
