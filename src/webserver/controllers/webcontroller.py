@@ -4,11 +4,13 @@
 """
 from flask import request
 
-from src.webserver.controllers import bp
+from src.webserver.controllers import bp, m_bp
 
 
 @bp.route('/')
 @bp.route('/home')
+@m_bp.route('/home_web')
+@m_bp.route('')
 def home():
     """
     首页路由处理函数
@@ -33,8 +35,51 @@ def get_count():
     缺少参数：/get_count?a=5 将使用默认值 0 作为 b 的值
     """
     try:
+        #request.args 是url上的入参
         a = int(request.args.get('a', 0))
         b = int(request.args.get('b', 0))
         return str(a + b)
     except ValueError:
         return "错误：参数必须是整数", 400
+
+
+@m_bp.route('/submit', methods=['POST'])
+def submit():
+    """
+    处理POST请求的路由函数
+    从请求体中获取数据并处理
+    Returns:
+        str: 返回处理结果
+    """
+    if not request.is_json:
+        return "错误:请求Content-Type必须是application/json", 400
+        
+    data = request.get_json()
+    if not data:
+        return "错误:请求体不能为空", 400
+        
+    return f"成功接收数据:{data}"
+
+
+@m_bp.route('/get_params')
+def get_params():
+    """
+    获取URL参数的路由处理函数
+    从请求中获取所有URL参数并返回
+    Returns:
+        str: 返回包含所有URL参数的字符串
+    使用示例:
+    /get_params?name=test&age=18 将返回所有参数键值对
+    """
+    # 获取所有URL参数
+    params = request.args
+    if not params:
+        return "没有URL参数"
+    
+    # 构建参数字符串
+    result = []
+    for key, value in params.items():
+        result.append(f"{key}: {value}")
+    
+    return "\n".join(result)
+
