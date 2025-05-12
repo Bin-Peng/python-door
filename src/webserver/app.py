@@ -3,7 +3,7 @@ Flask 应用实例和启动逻辑
 """
 from flask import Flask, request
 
-from src.webserver.controllers import m_bp, bp
+
 
 
 def create_app():
@@ -29,6 +29,8 @@ def create_app():
     
     with app.app_context():
         # 注册路由
+        from src.webserver.controllers.modulewebcontroller import m_bp
+        from src.webserver.controllers import bp
         app.register_blueprint(bp)
         app.register_blueprint(m_bp)
     

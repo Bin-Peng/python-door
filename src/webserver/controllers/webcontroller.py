@@ -4,7 +4,8 @@
 """
 from flask import request
 
-from src.webserver.controllers import bp, m_bp
+from src.webserver.controllers import bp
+from src.webserver.controllers.modulewebcontroller import m_bp
 
 
 @bp.route('/')
