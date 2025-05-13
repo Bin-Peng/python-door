@@ -13,7 +13,8 @@ dependencies = [
     # Web 框架
     "flask>=3.1.0,<4.0.0",  # Flask框架，用于构建Web应用
     "sqlalchemy>=2.0.0,<3.0.0",  # SQLAlchemy ORM框架
-    "pymysql>=1.1.0,<2.0.0"  # MySQL数据库驱动
+    "pymysql>=1.1.0,<2.0.0",  # MySQL数据库驱动
+    "click (==8.2.0)"
 ]
 
 # Poetry打包配置

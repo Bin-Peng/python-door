@@ -1,10 +1,8 @@
-#使用方式在其他文件中导入
-#from webserver.db.dbconfiguration import Base, get_db
-
 """数据库配置模块"""
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session, Session
 from sqlalchemy.ext.declarative import declarative_base
+from typing import TypeVar, Type
 
 # 创建基类
 Base = declarative_base()
@@ -30,16 +28,20 @@ engine = create_engine(
 )
 
 # 创建会话工厂
-SessionLocal = sessionmaker(autocommit=True, autoflush=True, bind=engine)
-db_session = scoped_session(SessionLocal)
+SessionLocal = sessionmaker(autoflush=True, bind=engine)
+# 明确指定类型为 scoped_session[Session]
+db_session: scoped_session[Session] = scoped_session(SessionLocal)
 
-def get_db():
-    """获取数据库会话"""
-    db = db_session
+def get_db() -> scoped_session[Session]:
+    """
+    获取数据库会话
+    Returns:
+        scoped_session[Session]: 数据库会话对象
+    """
     try:
-        # 使用yield返回数据库会话对象
-        # yield语句会创建一个生成器,允许在with语句中使用数据库会话
-        # 当with语句结束时,会自动调用生成器的close方法,确保数据库连接被正确关闭
-        yield db
+        return db_session
+    except Exception as e:
+        db_session.rollback()
+        raise e
     finally:
-        db.close()
+        db_session.close()    
