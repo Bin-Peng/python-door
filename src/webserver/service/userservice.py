@@ -2,10 +2,11 @@ from flask import current_app
 from sqlalchemy import select
 from typing import List, Dict, Any
 
-from src.webserver.db.dbconfiguration import get_db, db_session
-from src.webserver.db.models.user import User
+from src.webserver.config.db_configuration import get_db, db_session
+from src.webserver.repository.models.user import User
 
-dbsession = get_db()
+dbsession =  get_db()
+
 
 
 class UserService:

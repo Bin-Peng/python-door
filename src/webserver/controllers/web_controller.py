@@ -5,7 +5,7 @@
 from flask import request
 
 from src.webserver.controllers import bp
-from src.webserver.controllers.modulewebcontroller import m_bp
+from src.webserver.controllers.module_web_controller import m_bp
 
 
 @bp.route('/')
@@ -36,9 +36,11 @@ def get_count():
     缺少参数：/get_count?a=5 将使用默认值 0 作为 b 的值
     """
     try:
+        #把请求入参转换为字典
+        params = request.args.to_dict()# 转换为字典
         #request.args 是url上的入参
-        a = int(request.args.get('a', 0))
-        b = int(request.args.get('b', 0))
+        a = int(params.get('a', 0))
+        b = int(params.get('b', 0))
         return str(a + b)
     except ValueError:
         return "错误：参数必须是整数", 400

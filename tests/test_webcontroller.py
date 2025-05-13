@@ -102,7 +102,7 @@ def test_get_count_edge_cases(client):
     # 测试零值
     response = client.get('/get_count?a=0&b=0')
     assert response.status_code == 200
-    assert response.data.decode('utf-8') == '0'
+    assert response.data.decode('utf-8') == '0' 
 
 def test_submit_route(client):
     """

@@ -8,4 +8,4 @@ from flask import Blueprint
 bp = Blueprint('global_web', __name__)
 
 # 导入路由模块以确保它们被注册
-from src.webserver.controllers import webcontroller
+from src.webserver.controllers import web_controller

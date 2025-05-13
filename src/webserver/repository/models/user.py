@@ -1,6 +1,8 @@
 from datetime import datetime
 from sqlalchemy import Column, BigInteger, String, TIMESTAMP, Boolean, Table
-from src.webserver.db.dbconfiguration import Base, engine
+
+from src.webserver.config.db_configuration import Base, engine
+
 
 class User(Base):
     # __tablename__ = 'users'

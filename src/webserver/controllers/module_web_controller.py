@@ -2,7 +2,7 @@ import json
 
 from flask import make_response, request, current_app, Blueprint
 
-from src.webserver.db.models.user import User
+from src.webserver.repository.models.user import User
 from src.webserver.service.userservice import UserService
 
 # 定义全局变量用于URL前缀和路径匹配

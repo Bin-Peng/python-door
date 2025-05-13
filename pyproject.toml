@@ -14,7 +14,11 @@ dependencies = [
     "flask>=3.1.0,<4.0.0",  # Flask框架，用于构建Web应用
     "sqlalchemy>=2.0.0,<3.0.0",  # SQLAlchemy ORM框架
     "pymysql>=1.1.0,<2.0.0",  # MySQL数据库驱动
-    "click (==8.2.0)"
+    "click (==8.2.0)",
+    "python-dotenv (>=1.1.0,<2.0.0)",
+    "pydantic-settings (>=2.9.1,<3.0.0)",
+    "cryptography (>=44.0.3,<45.0.0)",
+    "logging (>=0.4.9.6,<0.5.0.0)"
 ]
 
 # Poetry打包配置

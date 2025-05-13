@@ -1,9 +1,14 @@
 """
 Flask 应用实例和启动逻辑
 """
+import logging
+
 from flask import Flask, request
 
+from src.webserver.config.web_config import WEB_CONFIG
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def create_app():
@@ -29,24 +34,25 @@ def create_app():
     
     with app.app_context():
         # 注册路由
-        from src.webserver.controllers.modulewebcontroller import m_bp
+        from src.webserver.controllers.module_web_controller import m_bp
         from src.webserver.controllers import bp
         app.register_blueprint(bp)
         app.register_blueprint(m_bp)
     
     return app
 
-app = create_app()
+app = create_app() 
 
 def run_app():
     """
     启动 Flask 应用
     """
     # 设置日志级别为DEBUG
-    app.logger.setLevel('DEBUG')
     urlmap= "注册的url："+ app.url_map.__str__()
-    print(urlmap)
-    app.run(host='127.0.0.1', port=5000)
+    logger.info(urlmap)
+    logger.info("WEB的配置"+WEB_CONFIG.__str__())
+    logger.info(WEB_CONFIG.get('host'))
+    app.run(host=WEB_CONFIG.get('host'), port=WEB_CONFIG.get('port'))
 
 if __name__ == "__main__":
     run_app()
